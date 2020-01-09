@@ -1,0 +1,78 @@
+
+$(function () {
+    var snippetCarousel = $('[data-carousel-post]');
+    var snipPerView = [3, 3, 2, 1],
+        snipSpace = [30, 30, 20, 20];
+    var swiperSnippet = new Swiper(snippetCarousel, {
+        nextButton: snippetCarousel.parent().find('.swiper-button-next'),
+        prevButton: snippetCarousel.parent().find('.swiper-button-prev'),
+        paginationClickable: true,
+		autoplay: 4000,
+        observer: true,
+        loop: true,
+        scrollbarHide: false,
+        hashNavigation: true,
+        //preventClicks: true,
+        //preventClicksPropagation: true,
+		slidesPerView: snipPerView[0],
+        spaceBetween: snipSpace[0],
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        breakpoints: {
+            1280: {
+                slidesPerView: snipPerView[1],
+                spaceBetween: snipSpace[1]
+            },
+            1008: {
+                slidesPerView: snipPerView[2],
+                spaceBetween: snipSpace[2]
+            },
+            560: {
+                slidesPerView: snipPerView[3],
+                spaceBetween: snipSpace[3]
+            }
+        }
+    });
+    $('.color-widget .block-link').on('click', function(){
+        $(this).addClass("active").siblings().removeClass("active");
+    });
+
+    $('.es_shortcode_form .es_form_agree_checkbox_1').on('change',  function(){
+        console.log($(this).prop('checked'));
+        if( !$(this).prop('checked') ) {
+            $('.es_form_submit_1').prop('disabled', true);
+        } else {
+            $('.es_form_submit_1').prop('disabled', false);
+        }
+    });
+    $('.es_shortcode_form .es_form_agree_checkbox_2').on('change',  function(){
+        console.log($(this).prop('checked'));
+        if( !$(this).prop('checked') ) {
+            $('.es_form_submit_2').prop('disabled', true);
+        } else {
+            $('.es_form_submit_2').prop('disabled', false);
+        }
+    });
+    $('#es_txt_name2').on('change', function (e) {
+        var value = $(this).val();
+        var newValue = value.replace(/[^\W\s]/gi, '');
+        $(this).val(newValue);
+    });
+    $('#es_txt_name').on('change', function (e) {
+        var value = $(this).val();
+        var newValue = value.replace(/[^\W\s]/gi, '');
+        $(this).val(newValue);
+    });
+
+});
+
+function validateKeyStrokes(event) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    console.log(charCode);
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return true;
+    }
+    return false;
+}
